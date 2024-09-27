@@ -61,15 +61,39 @@ const deleteCourse = async (req, res) => {
     .then(() => {
         res.status(200).send('Cursos deletado com sucesso!')
     }).catch((err) => {
-        res.status(500).send('Ocorreu um erro: ' + err)
+        res.status(404).send('Ocorreu um erro: ' + err)
     })
     
+}
 
+// Edit course
+const editCourse = async (req, res) => {
+    // const course = await Course.findByPk(req.params.id)
+
+    const {id} = req.params
+    const {name} = req.body
+
+    await Course.update( // refatorar para tratar a entrada do ID
+        {name: name},
+        {
+            where: {
+                id: parseInt(id)
+            }
+        }
+    )
+    .then(() => {
+        res.status(200).send("Curso atualizado com sucesso")
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(404).send("Erro ao atualizar o curso: " + err)
+    })
 }
 
 module.exports = {
     getCourses,
     getCourse,
     addCourse,
-    deleteCourse
+    deleteCourse,
+    editCourse
 }
