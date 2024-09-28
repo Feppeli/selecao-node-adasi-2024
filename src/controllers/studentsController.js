@@ -16,7 +16,7 @@ const getStudents = async  (req, res) => {
         }
     })
     .catch((err) => {
-        req.status(404).send(err)
+        res.status(404).send(err)
     })
 
 }
@@ -56,7 +56,6 @@ const addStudent = async (req, res) => {
 // Delete Student
 const deleteStudent = async (req, res) => {
     const student = await Student.findByPk(req.params.id)
-    console.log(student + typeof(student))
     await Student.destroy({
         where: {
             id: student.id
@@ -88,7 +87,6 @@ const editStudent = async (req, res) => {
         res.status(200).send("Curso atualizado com sucesso")
     })
     .catch(err => {
-        console.log(err)
         res.status(404).send("Erro ao atualizar o curso: " + err)
     })
 }
