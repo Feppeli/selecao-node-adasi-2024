@@ -8,6 +8,4 @@ const Course = sequelize.define('Course', {
     }
 })
 
-sequelize.sync({force:false})
-
 module.exports = Course;
