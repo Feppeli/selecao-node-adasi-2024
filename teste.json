@@ -1,0 +1,41 @@
+{
+    "openapi":"3.0.1",
+    "info": {
+        "title": "Adasi Chalenge",
+        "description": "Documentação da API realizada para o teste backend da Adasi Software",
+        "version": "1.0.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/cursos": {
+            "get": {
+                "parameters" : {
+                    "in": "query",
+                    "name": "name",
+                    "type": "string"
+                },
+                "responses": {
+
+                }
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "name": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
