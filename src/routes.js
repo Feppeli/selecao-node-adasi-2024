@@ -4,6 +4,7 @@ const route = express()
 const coursesController = require('./controllers/coursesController')
 const studentsController = require('./controllers/studentsController')
 const taskController = require('./controllers/tasksCotnroller')
+const activitesController = require('./controllers/activitiesController')
 
 // routes: courses
 route.get('/cursos', coursesController.getCourses)
@@ -25,6 +26,13 @@ route.get('/tarefa/:id', taskController.getTask)
 route.post('/tarefa', taskController.addTask)
 route.delete('/tarefa/:id', taskController.deleteTask)
 route.put('/tarefa/:id', taskController.editTask)
+
+// Routes: Activities
+route.get('/atividades', activitesController.getActivities)
+route.get('/atividade/:id', activitesController.getActivitie)
+route.post('/atividade', activitesController.addActivitie)
+route.delete('/atividade/:id', activitesController.deleteActivitie)
+route.put('/atividade/:id', activitesController.editAcitivitie)
 
 
 module.exports = route
