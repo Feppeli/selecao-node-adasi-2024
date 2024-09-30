@@ -1,5 +1,5 @@
 const Activities = require('../database/models/activities')
-const {isWithinSixHour, isvalidateActivity} = require('../midlewares/activitiesValidations')
+const { isWithinSixHour, isvalidateActivity } = require('../midlewares/activitiesValidations')
 // functions for controller the API
 
 // get all activities 
@@ -30,13 +30,10 @@ const getActivitie = async (req, res) => {
 
 }
 
-
-
 // Add Activitie
 const addActivitie = async (req, res) => {
 
-    const { date, start_activitie, end_activitie } = req.body
-
+    const { date, start_activitie, end_activitie, finish_activitie, beginning_activie } = req.body
 
     // validação para ver se a hora final é maior que a hora inicial
     if (!isvalidateActivity(date, start_activitie, end_activitie)) {
@@ -46,6 +43,27 @@ const addActivitie = async (req, res) => {
     // Vaidação para checkar se a hora final está apenas 6 horas a frente da hora inicial
     if (!isWithinSixHour(date, start_activitie, end_activitie)) {
         return res.status(400).send('O termino da atividade só pode ser definida sendo 6 horas a frente da hora de inicio da atividade.')
+    }
+
+    // Validação para checkar se finish_activitie está antes de end_activitie
+    if (finish_activitie) {
+        const end = new Date(`${date}T${end_activitie}`);
+        const finish = new Date(`${date}T${finish_activitie}`);
+        if (finish > end) {
+            return res.status(400).send('finish_activitie deve ser antes de end_activitie.');
+        }
+    }
+
+    // Validação para checkar se beginning_activie está dentro de 15 minutos do start_activitie
+    if (beginning_activie) {
+        const start = new Date(`${date}T${start_activitie}`);
+        const beginning = new Date(`${date}T${beginning_activie}`);
+        const startWithToleranceBefore = new Date(start.getTime() - 15 * 60 * 1000); // 15 minutos antes
+        const startWithToleranceAfter = new Date(start.getTime() + 15 * 60 * 1000); // 15 minutos depois
+
+        if (beginning < startWithToleranceBefore || beginning > startWithToleranceAfter) {
+            return res.status(400).send('beginning_activie deve estar dentro de 15 minutos antes ou depois do start_activitie.');
+        }
     }
 
     // Glória a Deus, passou por todas as validações.
@@ -62,31 +80,6 @@ const addActivitie = async (req, res) => {
         res.status(400).send("ocorreu algum erro" + err)
     }
 
-
-    // const id = parseInt(activitie.id)
-    // const task = activitie.id
-    // const student = activitie.student
-    // const start = activitie.start_activitie
-    // const end = activitie.end_activitie
-
-    // //opitional
-    // const beginning = activitie.beginning_activie
-    // const finish = activitie.finish_activitie
-
-    // try {
-    //     res.status(201).send({
-    //         id,
-    //         date,
-    //         task,
-    //         student,
-    //         start,
-    //         end,
-    //         beginning,
-    //         finish
-    //     })
-    // }catch(err) {
-    //     res.status(404).send("Ocorreu algum erro: " + err)
-    // }
 }
 
 // Delete Student
