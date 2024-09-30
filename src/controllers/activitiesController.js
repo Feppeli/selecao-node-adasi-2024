@@ -1,4 +1,5 @@
 const Activities = require('../database/models/activities')
+const {isWithinSixHour, isvalidateActivity} = require('../midlewares/activitiesValidations')
 // functions for controller the API
 
 // get all activities 
@@ -38,29 +39,12 @@ const addActivitie = async (req, res) => {
 
 
     // validação para ver se a hora final é maior que a hora inicial
-    const isvalidateActivity = (date, start_activitie, end_activitie) => {
-        const startDateTime = new Date(`${date}T${start_activitie}`);
-        const endDateTime = new Date(`${date}T${end_activitie}`);
-
-        return startDateTime < endDateTime
-    }
-
     if (!isvalidateActivity(date, start_activitie, end_activitie)) {
         return res.status(400).send('A hora de término deve ser após a hora de início.')
     }
 
     // Vaidação para checkar se a hora final está apenas 6 horas a frente da hora inicial
-    const isWithinSixHour = (date, start_activitie, end_activitie) => {
-        const start = new Date(`${date}T${start_activitie}`);
-        const end = new Date(`${date}T${end_activitie}`);
-
-        const differenceInMillis = end - start; 
-        const sixHoursInMillis = 6 * 60 * 60 * 1000; // converte 6 horas em milisegundos
-
-        return differenceInMillis <= sixHoursInMillis; // verificando a diferença 
-    }
-
-    if(!isWithinSixHour(date, start_activitie, end_activitie)){
+    if (!isWithinSixHour(date, start_activitie, end_activitie)) {
         return res.status(400).send('O termino da atividade só pode ser definida sendo 6 horas a frente da hora de inicio da atividade.')
     }
 
