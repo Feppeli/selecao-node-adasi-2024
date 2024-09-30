@@ -5,6 +5,7 @@ const sequelize = require('./src/database/database')
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./src/swagger-output.json')
 const bodyParser = require('body-parser')
+require('dotenv').config();
 
 // sequelize authentication
 try {
@@ -20,8 +21,9 @@ app.use(route)
 app.use(bodyParser.json())
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
+const port = process.env.PORT || 3000;
+
 // start server
-const port = 3000
 app.listen (port, async () => {
     console.log(`Server on🔥: http://localhost:${port}`)
 })
