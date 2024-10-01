@@ -63,6 +63,10 @@ Entendemos que imprevistos podem ocorrer e que cada desenvolvedor tem um ritmo d
    - como padrão a aplicação criará um servidor no seguinte endereço local: http://localhost:3000.
    - lembrando que além de ter um arquivo para importar todas as requisições através do *Insomnia* a aplicação também tem documentação realizada no Swagger que pode er acessada através do seguinte endereço : http://localhost:3000/doc/
 
+- Após iniciar o servidor o banco de dados irá se configurar automáticamente.
+   - a sicronização das models no banco de dados utilizando o Sequelize vai criar todas as tabelas já configuradas no caso do banco de dados não ter as tabelas configuradas dentro do models.
+   Então de preferência que após criar o banco de Dados, não gerar nenhuma tabela.
+
 
 <br/> 
 
