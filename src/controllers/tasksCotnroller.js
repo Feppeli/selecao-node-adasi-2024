@@ -8,7 +8,7 @@ const getTasks = async ( req, res) => {
     Task.findAll()
     .then((task) => {
         if(task === null) {
-            res.status(500).send("Nenhuma tarefa encontrada")
+            res.status(404).send("Nenhuma tarefa encontrada")
         }else{
             res.status(200).send(task)
         }

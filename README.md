@@ -54,7 +54,6 @@ Entendemos que imprevistos podem ocorrer e que cada desenvolvedor tem um ritmo d
 # INSTALAÇÃO
 
 - Primeiro realize o clone da aplicação.
-- o próximo passo agora é realizar a instalação de todas as dependencias bibliotecas e o framework escolhido. Para isso pasta usar o seguinte código no root da aplicação: npm install.
 
 - após esses passo vocÊ deve criar um banco de dados. O banco de dados desta aplicação como padrão está utilizando o nome Adasi_test.
    - dentro do arquivo .env você encontrará as variáveis para realizar a configuração entre o seu banco de dados e a aplicação. 
@@ -65,7 +64,6 @@ Entendemos que imprevistos podem ocorrer e que cada desenvolvedor tem um ritmo d
 
 - Após iniciar o servidor o banco de dados irá se configurar automáticamente.
    - a sicronização das models no banco de dados utilizando o Sequelize vai criar todas as tabelas já configuradas no caso do banco de dados não ter as tabelas configuradas dentro do models.
-   Então de preferência que após criar o banco de Dados, não gerar nenhuma tabela.
 
 
 <br/> 
